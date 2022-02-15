@@ -1,26 +1,123 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="carouselComponent">
+    <Carousel class="caro" :autoplay="2000" :wrap-around="true">
+      <Slide v-for="image in images" :key="image.id">
+        <!-- <div class="carousel__item carouselImgContainer">
+        <img class="image" src="./assets/1.svg" alt="" />
+        <div class="lol">loooll</div>
+      </div> -->
+
+        <div class="carousel__item">
+          <img class="image" :src="image.url" alt="" />
+          <!-- {{ image.id }} -->
+          <div class="carouselTexts">{{ image.message }}</div>
+        </div>
+      </Slide>
+
+      <template class="ads" #addons>
+        <Pagination class="pags" />
+      </template>
+    </Carousel>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script scoped>
+import image1 from "./assets/1.svg";
+import image2 from "./assets/2.svg";
+import image3 from "./assets/3.svg";
+import { defineComponent } from "vue";
+import { Carousel, Pagination, Slide } from "vue3-carousel";
 
-export default {
-  name: 'App',
+import "vue3-carousel/dist/carousel.css";
+
+export default defineComponent({
+  name: "Autoplay",
   components: {
-    HelloWorld
-  }
-}
+    Carousel,
+    Slide,
+    Pagination,
+  },
+  data() {
+    return {
+      images: [
+        { id: 1, url: image1, message: "Hızlıca randevu alın ve düzenleyin" },
+        {
+          id: 2,
+          url: image2,
+          message: "Dilediğiniz yerden doktorunuzla görüntülü görüşün",
+        },
+        {
+          id: 2,
+          url: image3,
+          message: "Test sonuçlarınızı ve raporlarınızı anında görüntüleyin",
+        },
+      ],
+    };
+  },
+});
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.carouselComponent {
+  overflow: hidden;
+  width: 500px;
+  height: 457px;
+  display: flex;
+  border: 10px solid gold;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.caro {
+  display: flex;
+  /* border: 10px solid gold; */
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pags {
+  width: 100%;
+  position: relative;
+  right: 1.5rem;
+}
+.carousel__pagination-button {
+  margin: var(--vc-pgn-margin);
+  width: var(--vc-pgn-width);
+  height: var(--vc-pgn-height);
+  border-radius: var(--vc-pgn-height);
+  border: 0;
+  cursor: pointer;
+  background-color: black;
+}
+
+.carousel__pagination-button--active {
+  background-color: black;
+}
+.carouselImgContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.image {
+  width: 400px;
+  height: 400px;
+}
+.carouselTexts {
+  width: auto;
+  font-family: Nunito Sans;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 130%;
+  /* or 26px */
+
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  letter-spacing: -0.01em;
+
+  /* Primary */
+
+  color: #3c4e69;
 }
 </style>
